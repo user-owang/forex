@@ -1,0 +1,20 @@
+.error {
+  background-color: pink;
+  color: red;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: inline-block;
+  float: left;
+  clear: left;
+  width: 400px;
+  text-align: right;
+}
+input {
+  display: inline-block;
+  float: left;
+}
