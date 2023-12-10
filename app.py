@@ -15,11 +15,15 @@ def checkRates():
   amount = request.args['amount']
   is_valid = validate_form(source,currencies,amount)
   if is_valid['valid']:
-    rate = float(is_valid['results']['quotes'][source+currencies])
-    return render_template('results.html', rate = rate, amount = float(amount), source = source, currencies = currencies)
+    try:
+      rate = float(is_valid['results']['quotes'][source+currencies])
+    except:
+      rate = 1
+    finally:
+      return render_template('results.html', rate = rate, amount = float(amount), source = source, currencies = currencies)
   else:
     if is_valid['results']['errors'].count('error_cur'):
-      for term in is_valid['results']['errors']:
+      for term in is_valid['results']['inputs']:
         flash(f'Not a valid code: {term}')
     if is_valid['results']['errors'].count('error_amt'):
       flash('Not a valid amount')

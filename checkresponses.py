@@ -3,7 +3,6 @@ import requests
 access_key = '30cd3ecc142ff4fcdb37b677be093e2f'
 list = requests.get('http://api.exchangerate.host/list', params={'access_key': access_key})
 valid_cur = set(list.json()['currencies'].keys())
-error_codes = {'error_cur': 'Not a valid currency code:', 'error_amt': 'Not a valid amount'}
 
 def validate_form(source,currencies,amount):
   """outputs a list containing T/F for any invalid inputs, what kind of value error, and what input the error occurred in."""
