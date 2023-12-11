@@ -1,20 +1,21 @@
-from checkresponses import *
 from unittest import TestCase
+from checkresponses import *
 
 class CheckResponsesTests(TestCase):
-  def checkAllInvalid(self):
+
+  def test_checkAllInvalid(self):
     all_invalid = validate_form('asdf1','asdf2','asdf')
     
     self.assertIsInstance(all_invalid, dict)
     self.assertFalse(all_invalid['valid'])
     self.assertEqual(len(all_invalid['results']['errors']), 2)
     self.assertEqual(len(all_invalid['results']['inputs']), 2)
-    self.assertIn('asdf1', all_invalid['results'['inputs']])
-    self.assertIn('asdf2', all_invalid['results'['inputs']])
-    self.assertIn('error_cur', all_invalid['results'['errors']])
-    self.assertIn('error_amt', all_invalid['results'['errors']])
+    self.assertIn('asdf1', all_invalid['results']['inputs'])
+    self.assertIn('asdf2', all_invalid['results']['inputs'])
+    self.assertIn('error_cur', all_invalid['results']['errors'])
+    self.assertIn('error_amt', all_invalid['results']['errors'])
   
-  def checkSourceInvalid(self):
+  def test_checkSourceInvalid(self):
     source_invalid = validate_form('asdf1','USD','10')
 
     self.assertIsInstance(source_invalid, dict)
@@ -24,7 +25,7 @@ class CheckResponsesTests(TestCase):
     self.assertIn('error_cur', source_invalid['results']['errors'])
     self.assertIn('asdf1', source_invalid['results']['inputs'])
 
-  def checkCurrenciesInvalid(self):
+  def test_checkCurrenciesInvalid(self):
     currencies_invalid = validate_form('EUR','asdf2','10')
 
     self.assertIsInstance(currencies_invalid, dict)
@@ -34,7 +35,7 @@ class CheckResponsesTests(TestCase):
     self.assertIn('error_cur', currencies_invalid['results']['errors'])
     self.assertIn('asdf2', currencies_invalid['results']['inputs'])
 
-  def checkAmountInvalid(self):
+  def test_checkAmountInvalid(self):
     amount_invalid = validate_form('EUR','USD','asdf')
 
     self.assertIsInstance(amount_invalid, dict)
@@ -43,7 +44,7 @@ class CheckResponsesTests(TestCase):
     self.assertEqual(len(amount_invalid['results']['inputs']), 0)
     self.assertIn('error_amt', amount_invalid['results']['errors'])
 
-  def checkSourceAmountInvalid(self):
+  def test_checkSourceAmountInvalid(self):
     SA_invalid = validate_form('asdf1','USD','asdf')
 
     self.assertIsInstance(SA_invalid, dict)
@@ -54,7 +55,7 @@ class CheckResponsesTests(TestCase):
     self.assertIn('error_cur', SA_invalid['results']['errors'])
     self.assertIn('asdf1', SA_invalid['results']['inputs'])
 
-  def checkSourceCurrenciesInvalid(self):
+  def test_checkSourceCurrenciesInvalid(self):
     SC_invalid = validate_form('asdf1','asdf2','10')
 
     self.assertIsInstance(SC_invalid, dict)
@@ -65,7 +66,7 @@ class CheckResponsesTests(TestCase):
     self.assertIn('asdf2', SC_invalid['results']['inputs'])
     self.assertIn('asdf1', SC_invalid['results']['inputs'])
 
-  def checkCurrenciesAmountInvalid(self):
+  def test_checkCurrenciesAmountInvalid(self):
     CA_invalid = validate_form('EUR','asdf2','asdf')
 
     self.assertIsInstance(CA_invalid, dict)
@@ -76,7 +77,7 @@ class CheckResponsesTests(TestCase):
     self.assertIn('error_cur', CA_invalid['results']['errors'])
     self.assertIn('asdf2', CA_invalid['results']['inputs'])
 
-  def checkValid(self):
+  def test_checkValid(self):
     all_valid = validate_form('EUR','USD','10')
 
     self.assertIsInstance(all_valid, dict)

@@ -9,11 +9,11 @@ def validate_form(source,currencies,amount):
   answer = {'valid': True}
 
   try:
-    amount = float(amount)
+    new_amount = float(amount)
   except:
-    print('not valid amount')
+    new_amount = amount
   finally:
-    if source in valid_cur and currencies in valid_cur and isinstance(amount, float):
+    if source in valid_cur and currencies in valid_cur and isinstance(new_amount, float):
       res = requests.get('http://api.exchangerate.host/live', params={'access_key': access_key, 'source': source, 'currencies': currencies})
       answer['results']= res.json()
     
@@ -28,7 +28,7 @@ def validate_form(source,currencies,amount):
         inputs.append(currencies)
         if 'error_cur' not in errors:
           errors.append('error_cur')
-      if amount is not float:
+      if not isinstance(new_amount, float):
         errors.append('error_amt')
       answer['results'] = {'errors': errors, 'inputs': inputs}
     
